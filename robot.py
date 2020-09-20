@@ -63,10 +63,10 @@ class Robot(object):
             #     self.restart_sim()
 
             self.sim_client = None
-            vrep_ips = ['192.168.100.182','192.168.100.181','192.168.100.183','192.168.100.184','192.168.100.185']
+            vrep_ips = ['192.168.100.162','192.168.100.161','192.168.100.163','192.168.100.164','192.168.100.165','127.0.0.1']
             for test_ip in vrep_ips:
                 print("...connecting to ",test_ip,"...")
-                self.sim_client = vrep.simxStart('192.168.100.181', 31502, True, True, 5000, 5) # Connect to V-REP on port 19997
+                self.sim_client = vrep.simxStart(test_ip, 31502, True, True, 5000, 5) # Connect to V-REP on port 19997
                 if self.sim_client == -1:
                     continue
                 else: 
