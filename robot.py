@@ -54,13 +54,29 @@ class Robot(object):
 
             # Connect to simulator
             vrep.simxFinish(-1) # Just in case, close all opened connections
-            self.sim_client = vrep.simxStart('127.0.0.1', 19997, True, True, 5000, 5) # Connect to V-REP on port 19997
+            # self.sim_client = vrep.simxStart('192.168.100.181', 31502, True, True, 5000, 5) # Connect to V-REP on port 19997
+            # if self.sim_client == -1:
+            #     print('Failed to connect to simulation (V-REP remote API server). Exiting.')
+            #     exit()
+            # else:
+            #     print('Connected to simulation.')
+            #     self.restart_sim()
+
+            self.sim_client = None
+            vrep_ips = ['192.168.100.182','192.168.100.181','192.168.100.183','192.168.100.184','192.168.100.185']
+            for test_ip in vrep_ips:
+                print("...connecting to ",test_ip,"...")
+                self.sim_client = vrep.simxStart('192.168.100.181', 31502, True, True, 5000, 5) # Connect to V-REP on port 19997
+                if self.sim_client == -1:
+                    continue
+                else: 
+                    break
             if self.sim_client == -1:
                 print('Failed to connect to simulation (V-REP remote API server). Exiting.')
                 exit()
             else:
                 print('Connected to simulation.')
-                self.restart_sim()
+                self.restart_sim()                
 
             self.is_testing = is_testing
             self.test_preset_cases = test_preset_cases
